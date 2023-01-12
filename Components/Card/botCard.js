@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const UserCard = () => {
+const botCard = () => {
   return (
-    <View>
-      <Text>UserCard</Text>
+    <View style={styles.outline}>
+      <Text>botCard</Text>
     </View>
   );
 };
 
-export default UserCard;
+export default botCard;
 
 const styles = StyleSheet.create({});
