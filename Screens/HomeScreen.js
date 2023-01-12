@@ -11,12 +11,39 @@ import {
 } from "react-native";
 import React from "react";
 import { APP_ICON } from "../context/settings";
+import { AppContext } from "../context/AppContext";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const HomeScreen = () => {
-  const [prompt, setPrompt] = React.useState("");
+  const { prompt, setPrompt } = React.useContext(AppContext);
+
+  const handleSubmit = async () => {
+    console.log(prompt);
+
+    const response = await fetch("http://10.0.40.41:5000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        prompt: prompt
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
+      console.log(data);
+      //typeText(messageDiv, parsedData);
+    } else {
+      //const err = await response.text();
+      console.log("Something went wrong");
+      //alert(err);
+    }
+  };
+
   return (
     <View style={styles.outline}>
       <View style={{ flex: 1 }}>{/* Chat container */}</View>
@@ -28,7 +55,12 @@ const HomeScreen = () => {
           onChangeText={(text) => setPrompt(text)}
           style={styles.textInput}
         />
-        <TouchableWithoutFeedback style={styles.btn}>
+        <TouchableWithoutFeedback
+          style={styles.btn}
+          onPress={() => {
+            handleSubmit();
+          }}
+        >
           <Text style={styles.btnText}>{APP_ICON.SEND}</Text>
         </TouchableWithoutFeedback>
       </View>
