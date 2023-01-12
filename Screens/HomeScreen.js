@@ -48,7 +48,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.outline}>
-      <View style={{ flex: 1 }}>{/* Chat container */}</View>
+      <View style={{ flex: 1 }}>{/* chat container */}</View>
       <View style={styles.grid}>
         <TextInput
           name="prompt"
