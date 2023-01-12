@@ -17,7 +17,8 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const HomeScreen = () => {
-  const { prompt, setPrompt } = React.useContext(AppContext);
+  const { prompt, setPrompt, promptResponse, setPromptResponse } =
+    React.useContext(AppContext);
 
   const handleSubmit = async () => {
     console.log(prompt);
@@ -35,7 +36,8 @@ const HomeScreen = () => {
     if (response.ok) {
       const data = await response.json();
       const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
-      console.log(data);
+      console.log(parsedData);
+      setPromptResponse(parsedData);
       //typeText(messageDiv, parsedData);
     } else {
       //const err = await response.text();

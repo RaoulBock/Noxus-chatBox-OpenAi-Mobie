@@ -9,6 +9,7 @@ export const AppContext = React.createContext({
 const AppProvider = ({ children }) => {
   const [navPage, setNavPage] = React.useState(APP_PAGES.APP.HOME);
   const [prompt, setPrompt] = React.useState("");
+  const [promptResponse, setPromptResponse] = React.useState("");
 
   return (
     <AppContext.Provider
@@ -16,7 +17,9 @@ const AppProvider = ({ children }) => {
         navPage,
         setNavPage,
         prompt,
-        setPrompt
+        setPrompt,
+        promptResponse,
+        setPromptResponse
       }}
     >
       {children}
