@@ -135,21 +135,24 @@ const styles = StyleSheet.create({
   btnText: {
     position: "relative",
     right: 28,
-    zIndex: 10
+    zIndex: 10,
+    padding: 10
   },
   btn: {},
   botCard: {
     padding: 10,
     marginVertical: 5,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    width: windowWidth
   },
   userCard: {
     backgroundColor: "#4b6584",
     padding: 10,
     marginVertical: 5,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    width: windowWidth
   },
   text: {
     color: "white",
