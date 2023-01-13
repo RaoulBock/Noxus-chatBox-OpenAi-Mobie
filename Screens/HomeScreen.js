@@ -19,13 +19,13 @@ const windowHeight = Dimensions.get("window").height;
 const HomeScreen = () => {
   const { prompt, setPrompt, promptResponse, setPromptResponse } =
     React.useContext(AppContext);
+  const [messages, setMessages] = React.useState([]);
 
   const [ai, setAi] = React.useState(promptResponse);
   const [user, setUser] = React.useState(prompt);
 
   const handleSubmit = async () => {
     console.log(prompt);
-
     const response = await fetch("http://10.0.40.41:5000/", {
       method: "POST",
       headers: {
@@ -38,32 +38,26 @@ const HomeScreen = () => {
 
     if (response.ok) {
       const data = await response.json();
-      const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
+      const parsedData = data.bot.trim();
       console.log(parsedData);
-      setPromptResponse(parsedData);
-      //typeText(messageDiv, parsedData);
+      setMessages([...messages, { text: parsedData, isUser: false }]);
+      setPrompt("");
     } else {
-      //const err = await response.text();
       console.log("Something went wrong");
-      //alert(err);
     }
   };
 
   return (
     <View style={styles.outline}>
       <View style={{ flex: 1 }}>
-        {/* chat container */}
-
-        {ai && (
-          <View style={styles.botCard}>
-            <Text>{ai}</Text>
+        {messages.map((message, index) => (
+          <View
+            key={index}
+            style={message.isUser ? styles.userCard : styles.botCard}
+          >
+            <Text>{message.text}</Text>
           </View>
-        )}
-        {user && (
-          <View style={styles.userCard}>
-            <Text>{user}</Text>
-          </View>
-        )}
+        ))}
       </View>
       <View style={styles.grid}>
         <TextInput
