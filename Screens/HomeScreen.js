@@ -17,22 +17,21 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const HomeScreen = () => {
-  const { prompt, setPrompt, promptResponse, setPromptResponse } =
-    React.useContext(AppContext);
+  const { promptResponse, setPromptResponse } = React.useContext(AppContext);
   const [messages, setMessages] = React.useState([]);
+  const [userInput, setUserInput] = React.useState("");
 
-  const [ai, setAi] = React.useState(promptResponse);
-  const [user, setUser] = React.useState(prompt);
+  // const [ai, setAi] = React.useState(promptResponse);
+  // const [user, setUser] = React.useState(prompt);
 
   const handleSubmit = async () => {
-    console.log(prompt);
     const response = await fetch("http://10.0.40.41:5000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        prompt: prompt
+        prompt: userInput
       })
     });
 
@@ -40,8 +39,12 @@ const HomeScreen = () => {
       const data = await response.json();
       const parsedData = data.bot.trim();
       console.log(parsedData);
-      setMessages([...messages, { text: parsedData, isUser: false }]);
-      setPrompt("");
+      setMessages([
+        ...messages,
+        { text: userInput, isUser: true },
+        { text: parsedData, isUser: false }
+      ]);
+      setUserInput("");
     } else {
       console.log("Something went wrong");
     }
@@ -63,8 +66,8 @@ const HomeScreen = () => {
         <TextInput
           name="prompt"
           placeholder="Ask me anything..."
-          value={prompt}
-          onChangeText={(text) => setPrompt(text)}
+          value={userInput}
+          onChangeText={(text) => setUserInput(text)}
           style={styles.textInput}
         />
         <TouchableWithoutFeedback
