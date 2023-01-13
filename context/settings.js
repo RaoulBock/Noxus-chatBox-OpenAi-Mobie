@@ -10,7 +10,7 @@ export const APP_ICON = {
   SEND: (
     <Ionicons
       name={"ios-send-outline"}
-      style={{ color: "#34495e", fontSize: 20 }}
+      style={{ color: "#4b6584", fontSize: 20 }}
     />
   )
 };

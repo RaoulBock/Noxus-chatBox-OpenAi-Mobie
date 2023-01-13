@@ -21,9 +21,24 @@ const HomeScreen = () => {
   const { promptResponse, setPromptResponse } = React.useContext(AppContext);
   const [messages, setMessages] = React.useState([]);
   const [userInput, setUserInput] = React.useState("");
+  const [botText, setBotText] = React.useState("");
+  const [isWriting, setIsWriting] = React.useState(false);
 
   // const [ai, setAi] = React.useState(promptResponse);
   // const [user, setUser] = React.useState(prompt);
+
+  const typeText = (text) => {
+    let i = 0;
+    setIsWriting(true);
+    const interval = setInterval(() => {
+      setBotText((prev) => prev + text[i]);
+      i++;
+      if (i === text.length) {
+        setIsWriting(false);
+        clearInterval(interval);
+      }
+    }, 100);
+  };
 
   const handleSubmit = async () => {
     const response = await fetch("http://10.0.40.41:5000/", {
@@ -46,6 +61,8 @@ const HomeScreen = () => {
         { text: parsedData, isUser: false }
       ]);
       setUserInput("");
+      setBotText("");
+      typeText(parsedData);
     } else {
       console.log("Something went wrong");
     }
@@ -60,7 +77,15 @@ const HomeScreen = () => {
               key={index}
               style={message.isUser ? styles.userCard : styles.botCard}
             >
-              <Text>{message.text}</Text>
+              <Image
+                source={
+                  message.isUser
+                    ? require("../assets/u.jpg")
+                    : require("../assets/b.jpg")
+                }
+                style={styles.image}
+              />
+              <Text style={styles.text}>{message.text}</Text>
             </View>
           ))}
         </ScrollView>
@@ -114,15 +139,26 @@ const styles = StyleSheet.create({
   },
   btn: {},
   botCard: {
-    backgroundColor: "red",
     padding: 10,
-    width: 300,
-    borderRadius: 10
+    marginVertical: 5,
+    flexDirection: "row",
+    alignItems: "center"
   },
   userCard: {
-    backgroundColor: "blue",
+    backgroundColor: "#4b6584",
     padding: 10,
-    width: 300,
-    borderRadius: 10
+    marginVertical: 5,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  text: {
+    color: "white",
+    fontWeight: "500",
+    paddingHorizontal: 10
+  },
+  image: {
+    width: 30,
+    height: 30,
+    borderRadius: 50
   }
 });
