@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Image,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from "react-native";
 import React from "react";
 import { APP_ICON } from "../context/settings";
@@ -53,14 +54,16 @@ const HomeScreen = () => {
   return (
     <View style={styles.outline}>
       <View style={{ flex: 1 }}>
-        {messages.map((message, index) => (
-          <View
-            key={index}
-            style={message.isUser ? styles.userCard : styles.botCard}
-          >
-            <Text>{message.text}</Text>
-          </View>
-        ))}
+        <ScrollView>
+          {messages.map((message, index) => (
+            <View
+              key={index}
+              style={message.isUser ? styles.userCard : styles.botCard}
+            >
+              <Text>{message.text}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
       <View style={styles.grid}>
         <TextInput
