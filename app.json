@@ -4,30 +4,34 @@
     "slug": "v2",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/N.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/N.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#34495e"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/N.png",
+        "backgroundColor": "#34495e"
+      },
+      "package": "com.raoulbock.v2"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/N.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7471e79e-e68a-4a61-a80f-6d3606f95301"
+      }
     }
   }
 }
