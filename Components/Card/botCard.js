@@ -3,7 +3,7 @@ import React from "react";
 
 const botCard = () => {
   return (
-    <View style={styles.outline}>
+    <View>
       <Text>botCard</Text>
     </View>
   );

@@ -20,6 +20,9 @@ const HomeScreen = () => {
   const { prompt, setPrompt, promptResponse, setPromptResponse } =
     React.useContext(AppContext);
 
+  const [ai, setAi] = React.useState(promptResponse);
+  const [user, setUser] = React.useState(prompt);
+
   const handleSubmit = async () => {
     console.log(prompt);
 
@@ -48,7 +51,20 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.outline}>
-      <View style={{ flex: 1 }}>{/* chat container */}</View>
+      <View style={{ flex: 1 }}>
+        {/* chat container */}
+
+        {ai && (
+          <View style={styles.botCard}>
+            <Text>{ai}</Text>
+          </View>
+        )}
+        {user && (
+          <View style={styles.userCard}>
+            <Text>{user}</Text>
+          </View>
+        )}
+      </View>
       <View style={styles.grid}>
         <TextInput
           name="prompt"
@@ -96,5 +112,17 @@ const styles = StyleSheet.create({
     right: 28,
     zIndex: 10
   },
-  btn: {}
+  btn: {},
+  botCard: {
+    backgroundColor: "red",
+    padding: 10,
+    width: 300,
+    borderRadius: 10
+  },
+  userCard: {
+    backgroundColor: "blue",
+    padding: 10,
+    width: 300,
+    borderRadius: 10
+  }
 });
