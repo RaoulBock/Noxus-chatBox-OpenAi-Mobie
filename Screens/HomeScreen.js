@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { APP_ICON } from "../context/settings";
 import { AppContext } from "../context/AppContext";
+import LoadingDots from "../Components/LoadingDot";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -86,6 +87,8 @@ const HomeScreen = () => {
                 style={styles.image}
               />
               <Text style={styles.text}>{message.text}</Text>
+
+              {isWriting && <Text>Typing ... </Text>}
             </View>
           ))}
         </ScrollView>
