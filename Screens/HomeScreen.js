@@ -97,6 +97,7 @@ const HomeScreen = () => {
           value={userInput}
           onChangeText={(text) => setUserInput(text)}
           style={styles.textInput}
+          placeholderTextColor="gray"
         />
         <TouchableWithoutFeedback
           style={styles.btn}
@@ -134,16 +135,18 @@ const styles = StyleSheet.create({
   },
   btnText: {
     position: "relative",
-    right: 28,
+    right: 40,
     zIndex: 10,
-    padding: 10
+    padding: 10,
+    backgroundColor: "#34495e",
+    borderRadius: 50,
+    textAlign: "center"
   },
   btn: {},
   botCard: {
     padding: 10,
     marginVertical: 5,
     flexDirection: "row",
-    alignItems: "center",
     width: windowWidth
   },
   userCard: {
@@ -151,13 +154,14 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     flexDirection: "row",
-    alignItems: "center",
+
     width: windowWidth
   },
   text: {
     color: "white",
     fontWeight: "500",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    width: 300
   },
   image: {
     width: 30,
