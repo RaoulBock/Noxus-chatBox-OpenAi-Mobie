@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { APP_ICON } from "../context/settings";
 import { AppContext } from "../context/AppContext";
-import LoadingDots from "../Components/LoadingDot";
+import BotMessage from "../Components/BotMessage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -24,12 +24,15 @@ const HomeScreen = () => {
   const [userInput, setUserInput] = React.useState("");
   const [botText, setBotText] = React.useState("");
   const [isWriting, setIsWriting] = React.useState(false);
+  const [isCurrentMessageWriting, setIsCurrentMessageWriting] =
+    React.useState(false);
 
   // const [ai, setAi] = React.useState(promptResponse);
   // const [user, setUser] = React.useState(prompt);
 
   const typeText = (text) => {
     let i = 0;
+    setIsCurrentMessageWriting(true);
     setIsWriting(true);
     const interval = setInterval(() => {
       setBotText((prev) => prev + text[i]);
@@ -74,21 +77,26 @@ const HomeScreen = () => {
       <View style={{ flex: 1 }}>
         <ScrollView>
           {messages.map((message, index) => (
-            <View
-              key={index}
-              style={message.isUser ? styles.userCard : styles.botCard}
-            >
-              <Image
-                source={
-                  message.isUser
-                    ? require("../assets/u.jpg")
-                    : require("../assets/b.jpg")
-                }
-                style={styles.image}
-              />
-              <Text style={styles.text}>{message.text}</Text>
-
-              {isWriting && <Text>Typing ... </Text>}
+            <View key={index}>
+              {message.isUser ? (
+                <View style={styles.userCard}>
+                  <Image
+                    source={require("../assets/u.jpg")}
+                    style={styles.image}
+                  />
+                  <Text style={styles.text}>{message.text}</Text>
+                </View>
+              ) : (
+                <View style={styles.botMessageContainer}>
+                  <Image
+                    source={require("../assets/b.jpg")}
+                    style={styles.image}
+                  />
+                  <Text style={styles.text}>
+                    {isWriting ? "Thinking..." : message.text}
+                  </Text>
+                </View>
+              )}
             </View>
           ))}
         </ScrollView>
@@ -170,5 +178,10 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 50
+  },
+  botMessageContainer: {
+    flexDirection: "row",
+    marginHorizontal: 10,
+    marginVertical: 10
   }
 });
