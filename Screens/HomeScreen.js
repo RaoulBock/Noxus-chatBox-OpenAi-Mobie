@@ -26,6 +26,7 @@ const HomeScreen = () => {
   const [isWriting, setIsWriting] = React.useState(false);
   const [isCurrentMessageWriting, setIsCurrentMessageWriting] =
     React.useState(false);
+  const [thinking, setThinking] = React.useState(false);
 
   // const [ai, setAi] = React.useState(promptResponse);
   // const [user, setUser] = React.useState(prompt);
@@ -40,6 +41,7 @@ const HomeScreen = () => {
       if (i === text.length) {
         setIsWriting(false);
         clearInterval(interval);
+        setThinking(false);
       }
     }, 100);
   };
@@ -67,6 +69,7 @@ const HomeScreen = () => {
       setUserInput("");
       setBotText("");
       typeText(parsedData);
+      setThinking(false);
     } else {
       console.log("Something went wrong");
     }
@@ -92,19 +95,24 @@ const HomeScreen = () => {
                     source={require("../assets/b.jpg")}
                     style={styles.image}
                   />
-                  <Text style={styles.text}>
-                    {isWriting ? "Thinking..." : message.text}
-                  </Text>
+                  <Text style={styles.text}>{message.text}</Text>
                 </View>
               )}
             </View>
           ))}
         </ScrollView>
       </View>
+      {/* Thinking animation goes here */}
+      {/* {isWriting === true && (
+        <Text style={styles.thinkingText}>Thinking ... </Text>
+      )} */}
+
       <View style={styles.grid}>
         <TextInput
           name="prompt"
-          placeholder="Ask me anything..."
+          placeholder={
+            thinking === true ? "Thinking ... " : "Ask me anything..."
+          }
           value={userInput}
           onChangeText={(text) => setUserInput(text)}
           style={styles.textInput}
@@ -114,6 +122,8 @@ const HomeScreen = () => {
           style={styles.btn}
           onPress={() => {
             handleSubmit();
+            setUserInput("");
+            setThinking(true);
           }}
         >
           <Text style={styles.btnText}>{APP_ICON.SEND}</Text>
@@ -183,5 +193,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 10,
     marginVertical: 10
+  },
+  thinkingText: {
+    textAlign: "center",
+    fontWeight: "500",
+    color: "red",
+    fontSize: 18
   }
 });
